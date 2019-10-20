@@ -41,13 +41,14 @@ game_data = ['Date', 'Home', 'Away', 'Spread', 'Total']
 vi_list = []
 database('CBB-Spread-Database', game_data)
 
-fix_list = ['VI','SBR 1','SBR 2','SBR 3','SBR 4']
+fix_list = ['VI','CBB Reference','SBR 1','SBR 2','SBR 3','SBR 4','NC','Massey','Team Link']
 fix_log = database_reader('CBB-Team-Fix.csv', fix_list)
 
 head_list = ['Date','Rot','VH','Team','1st','2nd','Final','Open','Close','ML','2H']
-for year in range(2010,2018):
+for year in range(2011,2020):
     change_directory('\\SBR\\')
     game_log = database_reader('ncaa basketball ' + str(year) + '.csv', head_list)
+    year -= 1
     os.chdir(first_dir)
     change_directory('\\Database\\')
     index = 0
@@ -92,7 +93,13 @@ for year in range(2010,2018):
                 elif float(game_data[3]) > float(game[8]):
                     game_data[4] =  game_data[3]
                     game_data[3] = '-' + str(game[8])
-                    
+
+                for tfix in fix_log:
+                    if game_data[1] == tfix[2] or game_data[1] == tfix[3] or game_data[1] == tfix[4] or game_data[1] == tfix[5]:
+                        game_data[1] = tfix[0]
+                    elif game_data[2] == tfix[2] or game_data[2] == tfix[3] or game_data[2] == tfix[4] or game_data[2] == tfix[5]:
+                        game_data[2] = tfix[0]
+            
             index = 0
             database('CBB-Spread-Database', game_data)
             game_data = ['', '', '', '', '']
@@ -106,7 +113,7 @@ for year in range(2010,2018):
 #beautifulsoup4 link
 os.chdir(first_dir)
 change_directory('\\Database\\')
-start_date = date(2018, 11, 1)
+start_date = date(2019, 11, 1)
 end_date = date(2020, 4, 30)
 delta = timedelta(days=1)
 while start_date <= end_date:
