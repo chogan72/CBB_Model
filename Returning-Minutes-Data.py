@@ -38,7 +38,7 @@ player_head = ['Year','Team','% returning']
 fix_head = ['VI','CBB Reference','SBR 1','SBR 2','SBR 3','SBR 4','NC','Massey','Team Link','Ret Min']
 
 #Create lists of database
-player_list = database_reader('$ret-mins.csv', player_head)
+player_list = database_reader('ret-mins.csv', player_head)
 fix_log = database_reader('CBB-Team-Fix.csv', fix_head)
 
 head = ['Year','Team','Ret Mins']

@@ -35,7 +35,7 @@ def database_reader(current_file, head_list):
     return(database_players)
 
 change_directory('\\Database\\')
-fix_list = ['VI','CBB Reference','SBR 1','SBR 2','SBR 3','SBR 4','NC','Massey','Team Link']
+fix_list = ['VI','CBB Reference','SBR 1','SBR 2','SBR 3','SBR 4','NC','Massey','Team Link','Ret Min']
 fix_log = database_reader('CBB-Team-Fix.csv', fix_list)
 
 game_data = ['Year','Ranking','Team']
