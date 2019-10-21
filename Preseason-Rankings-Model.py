@@ -37,11 +37,13 @@ change_directory('/Database/')
 nc_head = ['Year','Team','Odds']
 pythag_head = ['Year','Team','Real Win Total', 'Real Loss Total', 'Pythag']
 mass_head = ['Year','Ranking','Team']
+rm_head = ['Year','Team','Ret Mins']
 
 #Create lists of database
 nc_list = database_reader('CBB-NC-Database.csv', nc_head)
 pythag_list = database_reader('CBB-Pythag-Database.csv', pythag_head)
 mass_list = database_reader('CBB-Massey-Ratings-Database.csv', mass_head)
+rm_list = database_reader('CBB-Ret-Mins-Database.csv', rm_head)
 
 os.chdir(first_directory)
 change_directory('/Rankings/')
@@ -49,7 +51,7 @@ change_directory('/Rankings/')
 head = ['Year','Team','Ranking']
 database('CBB-Preseason-Rankings', head) 
 
-for year in range(2019,2020):
+for year in range(2012,2020):
     for mass in mass_list:
         if mass[0] == str(year):
             mass_rank = (355 - int(mass[1])) * .003
@@ -65,8 +67,15 @@ for year in range(2019,2020):
                             team_check = 1
                     if team_check == 0:
                         odds = 1/(((100000/100)+1)+1)
-                    if (int(team[2]) + int(team[3])) > 15:
-                        rank = (float(team[4]) + (float(odds)*10) + float(mass_rank)) / 3
+                    first_year = 0
+                    for rm in rm_list:
+                        if rm[0] == str(year) and rm[1] == mass[2]:
+                            current_rm = rm
+                            first_year = 1
+                    if (int(team[2]) + int(team[3])) > 15 and first_year  == 1:
+                        rank = (float(team[4]) + (float(odds)*10) + float(mass_rank) + (float(current_rm[2])/100)) / 4
+                    elif first_year  == 0:
+                        rank = ((float(odds)*10) + float(mass_rank)) / 2
                     head = [year,team[1],rank]
                     database('CBB-Preseason-Rankings', head) 
             
