@@ -41,7 +41,7 @@ game_data = ['Date', 'Home', 'Away', 'Spread', 'Total']
 vi_list = []
 database('CBB-Spread-Database', game_data)
 
-fix_list = ['VI','CBB Reference','SBR 1','SBR 2','SBR 3','SBR 4','NC','Massey','Team Link','Ret Min']
+fix_list = ['VI','CBB Reference','SBR 1','SBR 2','SBR 3','SBR 4','NC','Massey','Team Link','Ret Min','Schedule']
 fix_log = database_reader('CBB-Team-Fix.csv', fix_list)
 
 head_list = ['Date','Rot','VH','Team','1st','2nd','Final','Open','Close','ML','2H']
@@ -54,6 +54,7 @@ for year in range(2011,2020):
     index = 0
     new_year = 0
     for game in game_log:
+        home_fix = 0
         if len(game[0]) > 3:
             date = str(game[0])[:2] + '-' + str(game[0])[2:]  + '-' + str(year)
         else:
@@ -72,6 +73,7 @@ for year in range(2011,2020):
                 if game_data[3] == 'NL' and game[8] != 'NL':
                     game_data[3] = game[8]
                     game_data[4] = ''
+                    home_fix = 1
                 elif game_data[3] != 'NL' and game[8] == 'NL':
                     game[8] = game_data[3]
                     game_data[4] = ''
@@ -93,6 +95,10 @@ for year in range(2011,2020):
                 elif float(game_data[3]) > float(game[8]):
                     game_data[4] =  game_data[3]
                     game_data[3] = '-' + str(game[8])
+
+                if home_fix == 1:
+                    game_data[3] = '-' + str(game_data[3])
+                    home_fix = 0
 
                 for tfix in fix_log:
                     if game_data[1] == tfix[2] or game_data[1] == tfix[3] or game_data[1] == tfix[4] or game_data[1] == tfix[5]:
