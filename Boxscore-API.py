@@ -49,7 +49,7 @@ game_list = ['Date','Home','Away','H Score','A Score',
 """
 game_list = ['Date','Home','Away','H Score','A Score','ID']
 
-fix_list = ['VI','CBB Reference','SBR 1','SBR 2','SBR 3','SBR 4','NC','Massey','Team Link','Ret Min']
+fix_list = ['VI','CBB Reference','SBR 1','SBR 2','SBR 3','SBR 4','NC','Massey','Team Link','Ret Min','Schedule']
 fix_log = database_reader('CBB-Team-Fix.csv', fix_list)
 
 database('CBB-Boxscore-Database', game_list)
