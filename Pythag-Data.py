@@ -35,7 +35,7 @@ change_directory('/Database/')
 
 #Headings
 boxscore_head = ['Date','Home','Away','H Score','A Score','ID']
-nf_head = ['VI','CBB Reference','SBR 1','SBR 2','SBR 3','SBR 4','NC','Massey','Team Link','Ret Min']
+nf_head = ['VI','CBB Reference','SBR 1','SBR 2','SBR 3','SBR 4','NC','Massey','Team Link','Ret Min','Schedule']
 
 #Create lists of database
 boxscore_list = database_reader('CBB-Boxscore-Database.csv', boxscore_head)

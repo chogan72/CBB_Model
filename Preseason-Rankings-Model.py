@@ -38,20 +38,26 @@ nc_head = ['Year','Team','Odds']
 pythag_head = ['Year','Team','Real Win Total', 'Real Loss Total', 'Pythag']
 mass_head = ['Year','Ranking','Team']
 rm_head = ['Year','Team','Ret Mins']
+week_head = ['Year','1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24']
+
 
 #Create lists of database
 nc_list = database_reader('CBB-NC-Database.csv', nc_head)
 pythag_list = database_reader('CBB-Pythag-Database.csv', pythag_head)
 mass_list = database_reader('CBB-Massey-Ratings-Database.csv', mass_head)
 rm_list = database_reader('CBB-Ret-Mins-Database.csv', rm_head)
-
-os.chdir(first_directory)
-change_directory('/Rankings/')
-
-head = ['Year','Team','Ranking']
-database('CBB-Preseason-Rankings', head) 
+rm_list = database_reader('CBB-Ret-Mins-Database.csv', rm_head)
+week_list = database_reader('Week-Dates.csv', week_head)
 
 for year in range(2012,2020):
+    for week in week_list:
+        if week[0] == str(year):
+            date = week[1]
+    os.chdir(first_directory)
+    change_directory('/Rankings/')
+    head = ['Date','Team','Ranking']
+    last_year = year -1
+    database('CBB-' + str(year) + '-Rankings', head) 
     for mass in mass_list:
         if mass[0] == str(year):
             mass_rank = (355 - int(mass[1])) * .003
@@ -76,7 +82,7 @@ for year in range(2012,2020):
                         rank = (float(team[4]) + (float(odds)*10) + float(mass_rank) + (float(current_rm[2])/100)) / 4
                     elif first_year  == 0:
                         rank = ((float(odds)*10) + float(mass_rank)) / 2
-                    head = [year,team[1],rank]
-                    database('CBB-Preseason-Rankings', head) 
+                    head = [date,team[1],rank]
+                    database('CBB-' + str(year) + '-Rankings', head) 
             
             
