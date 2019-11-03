@@ -44,7 +44,7 @@ tournament = ['Championship','Semifinals','Quarterfinals','Semifinal','Quarterfi
 date = 0
 
 
-for year in range(2010,2019):
+for year in range(2019,2020):
     last_year = year + 1
     new_year = str(year) + str(last_year)[2:]
     for week in range(1,23):
