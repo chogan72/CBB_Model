@@ -3,7 +3,7 @@ import bs4
 import re
 import csv
 import os
-from datetime import date, timedelta
+import wget
 
 first_dir = os.getcwd()
 def change_directory(folder):
@@ -53,8 +53,17 @@ head_list = ['Date','Type','Team','Conf','Opponent','Venue','Result',
              'DEF PPP','DEF EFG%','DEF TO%','DEF REB%','DEF FTR',
              'G-SC','OPP Conf','OPP #','Season','Tempo','ID','Team Coach','OPP Coach','"+/-"','Rank','List']
 
-for year in range(2010,2020):
+for year in range(2010,2021):
     change_directory('\\Barttorvik\\')
+    if year == 2020:
+        if os.path.exists(str(year) + ' game stats.csv'):
+            os.remove(str(year) + ' game stats.csv')
+        database(str(year) + ' game stats', head_list)
+        url = "http://www.barttorvik.com/getgamestats.php?year=2020&csv=1"
+        wget.download(url, 'temp game stats.csv')
+        for line in open('temp game stats.csv'):
+            open(str(year) + ' game stats.csv',"a").write(line)
+        os.remove('temp game stats.csv')
     game_log = database_reader(str(year) + ' game stats.csv', head_list)
     os.chdir(first_dir)
     change_directory('\\Database\\')
@@ -107,16 +116,3 @@ for year in range(2010,2020):
                 elif game_data[4] == tfix[9]:
                     game_data[4] = tfix[0]
             database('CBB-Game-Database', game_data)
-
-
-
-
-
-
-
-
-
-
-
-
-        
