@@ -51,16 +51,28 @@ prediction_list = database_reader('CBB-Prediction.csv', prediction_head)
 os.chdir(first_directory)
 change_directory('/Historical-Test/')
 head = ['Date','Home','Spread','H Score','Away','A Score','ADV','ADV Team','Score']
-database('ADV-Test',head)
 
-for spread in prediction_list:
-    if float(spread[6]) > 10 or float(spread[6]) < -10:
-        for game in game_list:
-            if game[0] == spread[0] and game[2] == spread[1] and game[4] == spread[4]:
-                if spread[7] == spread[1]:
-                    score = float(game[3]) - float(game[5]) + float(spread[2])
-                elif spread[7] == spread[4]:
-                    score = float(game[5]) - float(game[3]) - float(spread[2])
-                game_data = [spread[0],spread[1],spread[2],game[3],spread[4],game[5],spread[6],spread[7],score]
-                database('ADV-Test',game_data)
+
+for mult in range(9,21):
+    w = 0
+    l = 0
+    p = 0
+    database(str(mult) + 'ADV-Test',head)
+    for spread in prediction_list:
+        if float(spread[6]) > float(mult) or float(spread[6]) < -float(mult):
+            for game in game_list:
+                if game[0] == spread[0] and game[2] == spread[1] and game[4] == spread[4]:
+                    if spread[7] == spread[1]:
+                        score = float(game[3]) - float(game[5]) + float(spread[2])
+                    elif spread[7] == spread[4]:
+                        score = float(game[5]) - float(game[3]) - float(spread[2])
+                    game_data = [spread[0],spread[1],spread[2],game[3],spread[4],game[5],spread[6],spread[7],score]
+                    database(str(mult) + 'ADV-Test',game_data)
+                    if score > 0:
+                        w += 1
+                    elif score < 0:
+                        l += 1
+                    elif score == 0:
+                        p += 1
+    print(mult,w,'-',l,'-',p)
         
