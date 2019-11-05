@@ -49,7 +49,7 @@ rm_list = database_reader('CBB-Ret-Mins-Database.csv', rm_head)
 rm_list = database_reader('CBB-Ret-Mins-Database.csv', rm_head)
 week_list = database_reader('Week-Dates.csv', week_head)
 
-for year in range(2012,2020):
+for year in range(2020,2021):
     for week in week_list:
         if week[0] == str(year):
             date = week[1]

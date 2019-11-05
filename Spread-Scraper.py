@@ -119,8 +119,8 @@ for year in range(2011,2020):
 #beautifulsoup4 link
 os.chdir(first_dir)
 change_directory('\\Database\\')
-start_date = date(2019, 11, 1)
-end_date = date(2020, 4, 30)
+start_date = date(2019, 11, 5)
+end_date = date(2020, 11, 6)
 delta = timedelta(days=1)
 while start_date <= end_date:
     date = (start_date.strftime("%Y-%m-%d"))
