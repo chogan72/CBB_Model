@@ -41,8 +41,11 @@ fix_log = database_reader('CBB-Team-Fix.csv', fix_list)
 game_data = ['Year','Ranking','Team']
 database('CBB-Massey-Ratings-Database', game_data)
 
-for year in range(2011,2020):
-    BS_link = 'https://www.masseyratings.com/cb/arch/compare' + str(year) + '-0.htm'
+for year in range(2011,2021):
+    if year == 2020:
+        BS_link = 'https://www.masseyratings.com/cb/compare.htm'
+    else:
+        BS_link = 'https://www.masseyratings.com/cb/arch/compare' + str(year) + '-0.htm'
     sauce = requests.get(BS_link)
     soup = bs4.BeautifulSoup(sauce.text, 'html.parser')
     start = 0
